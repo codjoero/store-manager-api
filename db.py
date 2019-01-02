@@ -166,7 +166,8 @@ class DB:
         return self.cur.fetchall()
     
     def revert_sale_record(self, sale_record):
-        self.cur.execute("UPDATE sale SET attendant_id=%s product_id=%s quantity=%s total=%s revert=%s", (sale_record.attendant_id, sale_record.product_id, sale_record.quantity, sale_record.total, True))
+        print(sale_record)
+        self.cur.execute("UPDATE sales SET attendant_id=%s, product_id=%s, quantity=%s, total=%s, revert=%s", (sale_record["attendant_id"], sale_record["product_id"], sale_record["quantity"], sale_record["total"], True))
 
     def get_category_by_name(self, name):
         self.cur.execute("SELECT * FROM categories WHERE name=%s", (name,))

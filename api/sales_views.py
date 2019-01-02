@@ -129,10 +129,10 @@ class SaleView(MethodView):
                 "error": "This sale record doesn't exist"
             }), 404
         db_conn.revert_sale_record(sale_record)
-        product = db_conn.get_product_by_id(sale_record.product_id)
+        product = db_conn.get_product_by_id(sale_record["product_id"])
         quantity = product["quantity"] + sale_record["quantity"]
         db_conn.update_product(name=product["name"], unit_cost=product["unit_cost"], 
-                               quantity=quantity, category_id=product["category_id"], 
+                               quantity=quantity, category_id=product.get("category_id"), 
                                product_id=sale_record["product_id"])
         return jsonify({
             "message": "Sale record has been successfully reverted"
